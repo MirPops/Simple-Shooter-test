@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InputsManager : MonoBehaviour
+{
+    public static event System.Action OnShoot;
+    public static event System.Action OnReload;
+    public static event System.Action<float> OnSwapWeapon;
+    public static event System.Action<Vector3> OnCharacterMove;
+    public static event System.Action<int> OnPressNumber;
+    public static event System.Action<float> OnRotateCharacterY;
+    public static event System.Action<float> OnRotateCharacterX;
+
+    private Vector3 movement;
+    private float rotationY;
+    private float rotationX;
+
+    private void Update()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.z = Input.GetAxisRaw("Vertical");
+        OnCharacterMove?.Invoke(movement);
+
+
+        //rotationY = ;
+        OnRotateCharacterY(Input.GetAxis("Mouse X"));
+
+
+        //rotationX = ;
+        OnRotateCharacterX(Input.GetAxis("Mouse Y"));
+
+        
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            OnShoot?.Invoke();
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            OnSwapWeapon?.Invoke(Input.GetAxis("Mouse ScrollWheel"));
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            OnReload?.Invoke();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            OnPressNumber?.Invoke(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            OnPressNumber?.Invoke(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            OnPressNumber?.Invoke(2);
+        }
+    }
+}
