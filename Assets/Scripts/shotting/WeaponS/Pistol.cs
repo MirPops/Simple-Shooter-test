@@ -16,12 +16,11 @@ public class Pistol : Weapon
 
         isShooting = true;
 
-        RaycastHit hit;
         Vector3 targetPoint, direction;
 
         Ray ray = new Ray(transform.position, transform.position + transform.forward * 100);
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out RaycastHit hit))
             targetPoint = hit.point;
         else
             targetPoint = ray.GetPoint(50);

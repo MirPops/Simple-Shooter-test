@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     private float rotationX = 0;
 
 
-
     private void OnEnable()
     {
         InputsManager.OnCharacterMove += MoveCharacter;

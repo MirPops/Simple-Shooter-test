@@ -8,7 +8,7 @@ public class HealthManager : MonoBehaviour, IDamagable
 
     public void GetDamage(int damage)
     {
-        print($"{name} get damage {damage}, now {health}");
+        Debug.Log($"{name} get damage {damage}, now {health - damage}");
         health -= damage;
         if (health < 1)
         {

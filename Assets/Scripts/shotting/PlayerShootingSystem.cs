@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PlayerShootingSystem : ShootingSystem
 {
+    [SerializeField] private List<Weapon> weapons;
     private int index = 0;
     private int lastIndex = 0;
-    [SerializeField] private List<Weapon> weapons;
 
 
     private void OnEnable()
@@ -46,14 +46,14 @@ public class PlayerShootingSystem : ShootingSystem
     // Скрол оружия по колесику мыши
     private void SwapWeapon(float delta)
     {
-        if (delta > 0)
+        if (delta < 0)
         {
             if (index == weapons.Count - 1)
                 index = 0;
             else
                 index++;
         }
-        else if (delta < 0)
+        else if (delta > 0)
         {
             if (index == 0)
                 index = weapons.Count - 1;

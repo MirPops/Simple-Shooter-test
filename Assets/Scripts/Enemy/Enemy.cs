@@ -6,6 +6,7 @@ public class Enemy : CharacterManager
     [SerializeField] private float stepDelay = 0.1f;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float speed;
+
     public EnemyShootingSystem shootingSystem;
     private Transform target;
 

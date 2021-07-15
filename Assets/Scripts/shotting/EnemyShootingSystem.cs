@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Здесь можно не наследовать от абстрактного класса, но если бы проект разростался то это бы пригодилось 
@@ -14,7 +13,6 @@ public class EnemyShootingSystem : ShootingSystem
         currentWeapon.gameObject.SetActive(true);
     }
 
-
     public IEnumerator StartShoot(Transform target)
     {
         while (target)
@@ -24,12 +22,9 @@ public class EnemyShootingSystem : ShootingSystem
         }
     }
 
-
     protected override void Shoot()
         => StartCoroutine(currentWeapon.Shoot(startPointBullet));
 
     protected override void Reload()
         => StartCoroutine(currentWeapon.Reload());
-
-    
 }

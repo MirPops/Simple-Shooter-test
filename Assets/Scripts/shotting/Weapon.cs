@@ -6,15 +6,15 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     public WeaponStats stats;
-    protected int clip;
-    protected bool isReloading = false, isShooting = false;
     private Stack<GameObject> bulletPull;
+    protected bool isReloading = false;
+    protected bool isShooting = false;
+    protected int clip;
 
     private void Start()
     {
         bulletPull = new Stack<GameObject>();
         clip = stats.MaxClipAmount;
-        print(clip);
     }
 
     public abstract IEnumerator Shoot(Transform startPoint);

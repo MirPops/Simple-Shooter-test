@@ -4,21 +4,23 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Rigidbody rb;
+
     private Weapon Owner;
     private Vector3 startPoint;
-    private int damage;
     private IDoDamage DoDamage;
+    private int damage;
 
-    
+
     public void Shoot(Vector3 velocity, Vector3 startPoint, Weapon weapon, IDoDamage doDamage = null)
     {
         rb.velocity = Vector3.zero;
         rb.AddForce(velocity, ForceMode.Impulse);
-        this.damage = weapon.stats.BaseDamage;
-        DoDamage = doDamage;
 
+        damage = weapon.stats.BaseDamage;
+        DoDamage = doDamage;
         Owner = weapon;
         this.startPoint = startPoint;
+
         StartCoroutine(RangeCalcRoutine());
     }
 

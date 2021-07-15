@@ -14,15 +14,16 @@ public class InputsManager : MonoBehaviour
 
     private void Update()
     {
+        // Передвижение по wsda или стрелкам
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.z = Input.GetAxisRaw("Vertical");
         OnCharacterMove?.Invoke(movement);
 
+        // Движения мыши
         OnRotateCharacterY(Input.GetAxis("Mouse X"));
-
         OnRotateCharacterX(Input.GetAxis("Mouse Y"));
-
         
+        // Нажатия отдельных клавиш
         if (Input.GetKey(KeyCode.Mouse0))
         {
             OnShoot?.Invoke();
@@ -35,6 +36,8 @@ public class InputsManager : MonoBehaviour
         {
             OnReload?.Invoke();
         }
+
+        // Свап оружия по кнопкам
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             OnPressNumber?.Invoke(0);
