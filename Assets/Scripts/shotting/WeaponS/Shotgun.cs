@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shotgun : Weapon
 {
     [SerializeField] private int bulletsPerShot;
-    public override IEnumerator Shoot(Transform startPoint, Camera camera)
+    public override IEnumerator Shoot(Transform startPoint)
     {
         if (isShooting || isReloading)
             yield break;
@@ -21,18 +21,20 @@ public class Shotgun : Weapon
         RaycastHit hit;
         Vector3 targetPoint, direction;
 
-        Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = new Ray(transform.position, transform.position + transform.forward * 100);
 
         if (Physics.Raycast(ray, out hit))
             targetPoint = hit.point;
         else
             targetPoint = ray.GetPoint(50);
 
+        // Стреляет бробью
         for (int i = 0; i < bulletsPerShot; i++)
         {
-            float x = Random.Range(-spread, spread);
-            float y = Random.Range(-spread, spread);
+            float x = Random.Range(-stats.Spread, stats.Spread);
+            float y = Random.Range(-stats.Spread, stats.Spread);
 
+            // Расчет вектора направления и прибавка разброса
             direction = (targetPoint - startPoint.position);
             direction += new Vector3(x, y, 0) * direction.magnitude;
 
@@ -40,11 +42,11 @@ public class Shotgun : Weapon
             bulletGM.transform.position = startPoint.position;
 
             Bullet bullet = bulletGM.GetComponent<Bullet>();
-            bullet.Shoot(direction.normalized * speedOfBullet, startPoint.position, this);
+            bullet.Shoot(direction.normalized * stats.SpeedOfBullet, startPoint.position, this);
         }
         clip--;
 
-        yield return new WaitForSeconds(rateOfFire);
+        yield return new WaitForSeconds(stats.RateOfFire);
         isShooting = false;
     }
 }

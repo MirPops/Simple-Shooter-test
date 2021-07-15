@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pistol : Weapon
 {
-    public override IEnumerator Shoot(Transform startPoint, Camera camera)
+    public override IEnumerator Shoot(Transform startPoint)
     {
         if (isShooting || isReloading)
             yield break;
@@ -20,16 +19,17 @@ public class Pistol : Weapon
         RaycastHit hit;
         Vector3 targetPoint, direction;
 
-        Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = new Ray(transform.position, transform.position + transform.forward * 100);
 
         if (Physics.Raycast(ray, out hit))
             targetPoint = hit.point;
         else
             targetPoint = ray.GetPoint(50);
 
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
+        float x = Random.Range(-stats.Spread, stats.Spread);
+        float y = Random.Range(-stats.Spread, stats.Spread);
 
+        // –асчет вектора направлени€ и прибавка разброса
         direction = (targetPoint - startPoint.position);
         direction += new Vector3(x, y, 0) * direction.magnitude;
 
@@ -37,10 +37,10 @@ public class Pistol : Weapon
         bulletGM.transform.position = startPoint.position;
 
         Bullet bullet = bulletGM.GetComponent<Bullet>();
-        bullet.Shoot(direction.normalized * speedOfBullet, startPoint.position, this);
+        bullet.Shoot(direction.normalized * stats.SpeedOfBullet, startPoint.position, this);
         clip--;
 
-        yield return new WaitForSeconds(rateOfFire);
+        yield return new WaitForSeconds(stats.RateOfFire);
         isShooting = false;
     }
 }

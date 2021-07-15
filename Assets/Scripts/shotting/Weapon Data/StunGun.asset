@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988111eefc9c94b489d36c4227230330, type: 3}
+  m_Name: StunGun
+  m_EditorClassIdentifier: 
+  baseDamage: 2
+  bullet: {fileID: 6686620442366048144, guid: cfddc625bf9cf4b43a00a21b2ee3683f, type: 3}
+  timeReload: 3
+  rateOfFire: 1
+  range: 20
+  spread: 0.05
+  maxClipAmount: 5
+  speedOfBullet: 5
+  color: {r: 0.97885394, g: 1, b: 0, a: 0}

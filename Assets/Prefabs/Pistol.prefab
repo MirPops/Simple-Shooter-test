@@ -94,11 +94,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa611f1c950867d40878b726c8f4225b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 5
-  bullet: {fileID: 6686620442366048144, guid: cfddc625bf9cf4b43a00a21b2ee3683f, type: 3}
-  timeReload: 1
-  rateOfFire: 1
-  range: 20
-  spread: 0.05
-  maxClipAmount: 7
-  speedOfBullet: 8
+  stats: {fileID: 11400000, guid: 4b8f010ffe076be4ab89404a31c9de9d, type: 2}

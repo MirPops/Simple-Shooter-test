@@ -1,14 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingSystem : MonoBehaviour
+public class PlayerShootingSystem : ShootingSystem
 {
     private int index = 0;
     private int lastIndex = 0;
     [SerializeField] private List<Weapon> weapons;
-    [SerializeField] private Transform startPointBullet;
-    [SerializeField] private Camera cameraMain;
 
 
     private void OnEnable()
@@ -39,14 +36,14 @@ public class ShootingSystem : MonoBehaviour
     }
 
 
-    private void Shoot()
-        => StartCoroutine(weapons[index].Shoot(startPointBullet, cameraMain));
+    protected override void Shoot()
+        => StartCoroutine(weapons[index].Shoot(startPointBullet));
 
 
-    private void Reload()
+    protected override void Reload()
         => StartCoroutine(weapons[index].Reload());
 
-
+    // Скрол оружия по колесику мыши
     private void SwapWeapon(float delta)
     {
         if (delta > 0)
@@ -66,8 +63,7 @@ public class ShootingSystem : MonoBehaviour
         SetWeaponOnIndex(index);
     }
 
-
-    public void SetWeaponOnIndex(int index)
+    private void SetWeaponOnIndex(int index)
     {
         if (index >= weapons.Count)
             return;

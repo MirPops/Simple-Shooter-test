@@ -1,19 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rb;
+    public Rigidbody rb;
     private Weapon Owner;
     private Vector3 startPoint;
     private int damage;
+    private IDoDamage DoDamage;
 
-    public void Shoot(Vector3 velocity, Vector3 startPoint, Weapon weapon)
+    
+    public void Shoot(Vector3 velocity, Vector3 startPoint, Weapon weapon, IDoDamage doDamage = null)
     {
         rb.velocity = Vector3.zero;
         rb.AddForce(velocity, ForceMode.Impulse);
-        this.damage = weapon.baseDamage;
+        this.damage = weapon.stats.BaseDamage;
+        DoDamage = doDamage;
 
         Owner = weapon;
         this.startPoint = startPoint;
@@ -25,19 +27,25 @@ public class Bullet : MonoBehaviour
         IDamagable damagable = other.GetComponent<IDamagable>();
         if (damagable != null)
         {
-            damagable.GetDamage(damage);
+            if (DoDamage != null)
+            {
+                StartCoroutine(DoDamage.DoDamage(other.GetComponent<HealthManager>(), this));
+                return;
+            }
+            else
+                damagable.GetDamage(damage);
         }
         if (!other.isTrigger)
             Owner.DestoyBullet(gameObject);
     }
 
+    // ”ничтожаетс€ когда пройденное расстоние больше ренжа
     private IEnumerator RangeCalcRoutine()
     {
         while (gameObject)
         {
-            yield return new WaitForSeconds(0.25f);
-            if (Vector3.Distance(startPoint, transform.position) > Owner.range)
-                Owner.DestoyBullet(gameObject);
+            yield return new WaitUntil(() => Vector3.Distance(startPoint, transform.position) > Owner.stats.Range);
+            Owner.DestoyBullet(gameObject);
         }
     }
 }

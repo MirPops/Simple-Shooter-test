@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputsManager : MonoBehaviour
@@ -13,8 +11,6 @@ public class InputsManager : MonoBehaviour
     public static event System.Action<float> OnRotateCharacterX;
 
     private Vector3 movement;
-    private float rotationY;
-    private float rotationX;
 
     private void Update()
     {
@@ -22,12 +18,8 @@ public class InputsManager : MonoBehaviour
         movement.z = Input.GetAxisRaw("Vertical");
         OnCharacterMove?.Invoke(movement);
 
-
-        //rotationY = ;
         OnRotateCharacterY(Input.GetAxis("Mouse X"));
 
-
-        //rotationX = ;
         OnRotateCharacterX(Input.GetAxis("Mouse Y"));
 
         
